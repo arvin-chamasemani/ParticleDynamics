@@ -15,6 +15,27 @@ The simulation uses GPU compute shaders to perform particle state calculations a
 
 The architecture supports multiple mathematical models through a shared simulation framework, allowing users to switch between systems and adjust their parameters at runtime.
 
+## Project Evolution
+
+ParticleDynamics is the next step in an ongoing exploration of GPU-based scientific simulation and real-time visualization in Unreal Engine.
+
+The development began with **[LorenzSimulation](https://github.com/arvin-chamasemani/LorenzSimulation)**, an earlier project focused on implementing the Lorenz attractor using GPU computation, RK4 numerical integration, and a custom particle rendering pipeline.
+
+Building on the experience gained from that project, ParticleDynamics expands the scope from a single mathematical system into a more general simulation framework supporting multiple nonlinear dynamical systems.
+
+### From a Single Attractor to a Multi-System Framework
+
+| LorenzSimulation | ParticleDynamics |
+|---|---|
+| Single Lorenz system | Eight dynamical systems |
+| RK4 integration | Euler and RK4 integration |
+| Lorenz-specific parameters | Model-specific runtime parameters |
+| GPU particle computation | Generalized GPU simulation pipeline |
+| Focused visualization | Multi-model interactive visualization |
+
+**Previous Project:** [LorenzSimulation — GitHub](https://github.com/arvin-chamasemani/LorenzSimulation)
+
+**Current Project:** ParticleDynamics — An extensible GPU-based nonlinear dynamics simulation plugin for Unreal Engine 5.8.
 ## Demonstrations
 
 The following demonstrations showcase the eight implemented nonlinear dynamical systems.
