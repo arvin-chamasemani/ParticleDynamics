@@ -3,9 +3,7 @@
 
 **ParticleDynamics** is a GPU-accelerated particle simulation plugin developed for Unreal Engine 5.8. It provides a real-time environment for exploring and visualizing nonlinear dynamical systems through configurable mathematical models, numerical integration methods, and GPU-based particle computation.
 
-The plugin is designed around a modular simulation architecture, allowing users to switch between different mathematical systems and adjust simulation parameters at runtime through an integrated control interface.
-
-The project combines numerical methods, GPU compute programming, shader development, and real-time visualization within Unreal Engine.
+Built with C++, HLSL, Unreal Engine's Rendering Hardware Interface (RHI), and Compute Shaders, the plugin combines mathematical simulation with real-time visualization in a modular and interactive environment.
 
 ---
 
@@ -13,125 +11,120 @@ The project combines numerical methods, GPU compute programming, shader developm
 
 ParticleDynamics brings mathematical dynamical systems into Unreal Engine through a dedicated GPU simulation pipeline.
 
-Rather than relying entirely on CPU-based particle updates, the simulation uses GPU compute shaders to perform particle state calculations and numerical integration. The resulting simulation data is then used by the rendering pipeline to visualize particle trajectories and dynamic behavior.
+The simulation uses GPU compute shaders to perform particle state calculations and numerical integration. Simulation data is then processed by a dedicated rendering pipeline to visualize particle trajectories and dynamic behavior.
 
-The system is designed to support multiple mathematical models through a shared simulation architecture, reducing the need for separate simulation implementations for each model.
+The architecture supports multiple mathematical models through a shared simulation framework, allowing users to switch between systems and adjust their parameters at runtime.
+
+## Demonstrations
+
+The following demonstrations showcase the eight implemented nonlinear dynamical systems.
+
+### 1. Lorenz Attractor
+
+![Lorenz Attractor](Media/Lorenz.gif)
+
+The Lorenz system is a classic example of deterministic chaos, characterized by its distinctive butterfly-shaped attractor.
+
+### 2. Aizawa Attractor
+
+![Aizawa Attractor](Media/Aizawa.gif)
+
+A nonlinear dynamical system known for its complex three-dimensional trajectories and intricate attractor structures.
+
+### 3. Thomas Attractor
+
+![Thomas Attractor](Media/Thomas.gif)
+
+A cyclically symmetric nonlinear system that produces distinctive periodic and chaotic trajectories.
+
+### 4. Rössler Attractor
+
+![Rossler Attractor](Media/Rossler.gif)
+
+A continuous-time chaotic system known for its characteristic spiral-shaped attractor.
+
+### 5. Chen System
+
+![Chen System](Media/Chen.gif)
+
+A three-dimensional nonlinear chaotic system exhibiting complex trajectories and sensitivity to initial conditions.
+
+### 6. Halvorsen Attractor
+
+![Halvorsen Attractor](Media/Halvorsen.gif)
+
+A symmetric nonlinear system producing intricate three-dimensional chaotic structures.
+
+### 7. Dadras System
+
+![Dadras System](Media/Dadras.gif)
+
+A nonlinear dynamical system capable of generating complex chaotic attractor behavior.
+
+### 8. Rabinovich–Fabrikant System
+
+![Rabinovich Fabrikant](Media/RabinovichFabrikant.gif)
+
+A nonlinear system exhibiting rich dynamical behavior, including complex and chaotic attractor structures.
+
+---
 
 ## Key Features
 
 - **GPU-Accelerated Simulation** – Particle state calculations are performed using GPU compute shaders.
-- **Multiple Dynamical Systems** – Eight implemented nonlinear mathematical models.
-- **Numerical Integration** – Support for Euler and fourth-order Runge–Kutta (RK4) integration.
-- **Runtime Parameter Control** – Adjust mathematical parameters and simulation settings while the simulation is running.
-- **Dynamic Model Switching** – Select between different dynamical systems through the control interface.
-- **Particle Visualization** – Real-time visualization of simulated particle trajectories.
-- **Velocity-Based Coloring** – Particle appearance can be driven by velocity information.
-- **GPU Data Readback** – Dedicated asynchronous GPU readback infrastructure for accessing simulation data.
-- **Simulation Reset** – Restart simulation states through runtime controls.
-
-## Supported Dynamical Systems
-
-The plugin currently implements eight nonlinear dynamical systems:
-
-| System | Mathematical model |
-|---|---|
-| Lorenz | Lorenz attractor |
-| Aizawa | Aizawa attractor |
-| Thomas | Thomas cyclically symmetric attractor |
-| Rössler | Rössler attractor |
-| Chen | Chen chaotic system |
-| Halvorsen | Halvorsen attractor |
-| Dadras | Dadras system |
-| Rabinovich–Fabrikant | Rabinovich–Fabrikant system |
-
-Each model has its own mathematical parameters and behavior, while sharing the underlying simulation infrastructure.
+- **Eight Dynamical Systems** – Multiple nonlinear mathematical models in one simulation framework.
+- **Numerical Integration** – Euler and fourth-order Runge–Kutta (RK4) methods.
+- **Runtime Parameter Control** – Adjust mathematical parameters while simulation is running.
+- **Dynamic Model Switching** – Change between supported systems through the control interface.
+- **Real-Time Particle Visualization** – Visualize evolving particle trajectories.
+- **Velocity-Based Coloring** – Use particle velocity information to drive visual appearance.
+- **GPU Data Readback** – Asynchronous infrastructure for accessing simulation data.
+- **Simulation Reset** – Reset simulation state through runtime controls.
 
 ## Technical Architecture
 
-ParticleDynamics is organized around several cooperating systems.
+### Simulation Management
 
-### 1. Simulation Management
+Coordinates simulation initialization, GPU resource allocation, particle state buffers, and compute dispatch operations.
 
-The simulation manager coordinates GPU simulation resources, particle state buffers, and compute dispatch operations.
+### Numerical Integration
 
-Its responsibilities include managing simulation initialization, execution, and GPU resource handling.
+Supports two numerical integration approaches:
 
-### 2. Numerical Integration
+- **Euler:** First-order numerical integration.
+- **RK4:** Fourth-order Runge–Kutta integration.
 
-The numerical integration system evaluates particle state evolution using two integration methods:
+### GPU Compute Pipeline
 
-- **Euler Integration:** A first-order numerical integration method.
-- **Runge–Kutta 4 (RK4):** A fourth-order integration method offering improved numerical accuracy for many simulation conditions.
+Uses Unreal Engine's shader infrastructure and GPU buffers to perform particle state calculations and iterative simulation updates.
 
-The integration method can be selected at runtime.
+### Particle Rendering
 
-### 3. GPU Compute Pipeline
+Processes simulation data through a dedicated rendering pipeline to visualize the resulting particle distributions and trajectories.
 
-The computational workload is implemented using Unreal Engine's shader infrastructure.
+### Runtime Control Interface
 
-Compute shaders handle particle state updates and numerical calculations, while GPU buffers maintain simulation data between dispatches.
-
-The architecture uses alternating GPU buffers to support iterative simulation updates.
-
-### 4. Particle Rendering
-
-The rendering system visualizes the computed particle states through a dedicated rendering pipeline.
-
-Particle positions and associated simulation data are used to generate the visual representation of the dynamical systems.
-
-### 5. Runtime Control Interface
-
-An integrated Unreal Engine Widget Blueprint provides runtime access to simulation controls.
-
-Users can interact with:
+An integrated UMG Widget Blueprint provides access to:
 
 - Dynamical system selection
 - Mathematical model parameters
 - Integration method
 - Simulation Delta Time
-- Simulation reset
-- Visualization settings
-
-The interface is designed to expose simulation controls without requiring users to modify the underlying C++ implementation.
+- Reset functionality
+- Visualization controls
 
 ## Technology Stack
 
 | Technology | Application |
 |---|---|
-| Unreal Engine 5.8 | Real-time simulation and visualization |
-| C++ | Simulation architecture and resource management |
+| Unreal Engine 5.8 | Real-time simulation |
+| C++ | Simulation architecture |
 | HLSL / Unreal Shaders | GPU computation |
-| Render Dependency Graph (RDG) | GPU resource and compute scheduling |
-| RHI | GPU resource management |
+| Render Dependency Graph (RDG) | GPU scheduling and resource management |
+| RHI | GPU resource handling |
 | Compute Shaders | Particle state calculations |
-| Blueprint / UMG | Runtime interaction and controls |
-| Numerical Methods | Euler and RK4 integration |
-
-## Development Highlights
-
-Some of the main engineering challenges addressed during development include:
-
-- Designing a reusable GPU simulation architecture for multiple mathematical models.
-- Managing persistent GPU particle buffers across simulation updates.
-- Implementing numerical integration directly within the GPU computation pipeline.
-- Handling asynchronous GPU readback.
-- Connecting C++ simulation systems with Blueprint-based runtime controls.
-- Coordinating GPU simulation output with real-time particle rendering.
-- Supporting dynamic mathematical parameter updates.
-
-The project emphasizes modularity, separation of responsibilities, and real-time computational workflows.
-
-## Demonstration
-
-*Screenshots and demonstration videos will be added here.*
-
-Recommended demonstrations:
-
-1. Switching between the eight dynamical systems.
-2. Comparing Euler and RK4 integration.
-3. Modifying mathematical parameters at runtime.
-4. Visualizing different attractor structures.
-5. Demonstrating the runtime control interface.
+| Blueprint / UMG | Runtime interface |
+| Numerical Methods | Euler and RK4 |
 
 ## System Requirements
 
@@ -140,23 +133,19 @@ Recommended demonstrations:
 - DirectX 12-compatible graphics hardware
 - GPU support for the required shader and rendering features
 
-Actual performance depends on particle count, GPU hardware, simulation settings, and rendering configuration.
+Performance depends on GPU hardware, particle count, simulation settings, and rendering configuration.
 
 ## Commercial Availability
 
 **ParticleDynamics is a proprietary commercial Unreal Engine plugin.**
 
-This GitHub repository serves as a technical portfolio and project showcase. The complete implementation, source code, shaders, and distributable plugin are not publicly included in this repository.
+This repository serves as a technical portfolio and project showcase. The complete implementation, source code, shaders, and distributable plugin are not publicly included.
 
 The commercial product is intended for distribution through the Unreal Engine Fab marketplace.
 
-For licensing, product availability, and distribution information, please refer to the official product listing when available.
-
 ## License
 
-Copyright © 2026.
-
-All rights reserved.
+Copyright © 2026. All rights reserved.
 
 The software implementation, proprietary source code, shaders, and associated commercial assets are not licensed for redistribution, modification, or commercial reuse through this portfolio repository.
 
