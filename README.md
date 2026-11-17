@@ -63,7 +63,7 @@ A nonlinear dynamical system capable of generating complex chaotic attractor beh
 
 ### 8. Rabinovich–Fabrikant System
 
-![Rabinovich Fabrikant](Media/Rabinovich-Fabricant.gif)
+![Rabinovich Fabrikant](Media/RabinovichFabricant.gif)
 
 A nonlinear system exhibiting rich dynamical behavior, including complex and chaotic attractor structures.
 
