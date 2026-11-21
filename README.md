@@ -92,6 +92,8 @@ A nonlinear system exhibiting rich dynamical behavior, including complex and cha
 
 ## Key Features
 
+![3D_view](Media/3DView.gif)
+
 - **GPU-Accelerated Simulation** – Particle state calculations are performed using GPU compute shaders.
 - **Eight Dynamical Systems** – Multiple nonlinear mathematical models in one simulation framework.
 - **Numerical Integration** – Euler and fourth-order Runge–Kutta (RK4) methods.
@@ -101,6 +103,7 @@ A nonlinear system exhibiting rich dynamical behavior, including complex and cha
 - **Velocity-Based Coloring** – Use particle velocity information to drive visual appearance.
 - **GPU Data Readback** – Asynchronous infrastructure for accessing simulation data.
 - **Simulation Reset** – Reset simulation state through runtime controls.
+![Parameters_Change](Media/Parameters.gif)
 
 ## Technical Architecture
 
